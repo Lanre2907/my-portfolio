@@ -12,11 +12,10 @@ export default function App() {
 
       <main className="container">
         <section id="home" className="hero">
-          <h1>Luke Agbetu</h1>
-          <h2>Data Engineer II</h2>
+          <h1>Lukman Agbetu</h1>
+          <h2>Data Engineer</h2>
           <p>
-            I build reliable, scalable data platforms using SQL, Python, Spark,
-            Airflow, Databricks, and cloud services across AWS, Azure, and GCP.
+            Data Engineer with strong enterprise experience designing, building, and operating scalable data platforms across U.S. and international environments. Specialized in SQL-heavy data engineering, Spark-based processing, and production ETL/ELT pipelines using Python and Apache Airflow. Proven ability to own data pipelines end to end, improve data quality and reliability, and support analytics and reporting at scale across AWS, Azure, and GCP environments. Hands-on contributor in regulated and high-volume enterprise systems.
           </p>
 
           <div className="actions">

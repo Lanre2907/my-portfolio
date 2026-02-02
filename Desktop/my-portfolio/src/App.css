@@ -12,37 +12,39 @@ body {
 }
 
 .container {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 90px 20px 60px; /* space for sticky nav */
 }
 
 .hero {
-  max-width: 900px;
-  text-align: center;
+  padding: 80px 0 40px;
+  text-align: left;
+  max-width: 780px;
 }
 
 .hero h1 {
-  font-size: 3rem;
-  font-weight: 800;
-  margin-bottom: 12px;
+  font-size: 3.2rem;
+  font-weight: 850;
+  line-height: 1.05;
+  margin-bottom: 10px;
 }
 
 .hero h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.4rem;
+  font-weight: 700;
   color: #7dd3fc;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .hero p {
-  font-size: 1.1rem;
-  line-height: 1.6;
+  font-size: 1.05rem;
+  line-height: 1.7;
   color: #cbd5e1;
-  margin-bottom: 32px;
+  margin-bottom: 26px;
+  max-width: 680px;
 }
+
 
 .actions {
   display: flex;
@@ -113,16 +115,16 @@ html {
 }
 
 .section {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 70px 20px;
-  text-align: left;
+  scroll-margin-top: 90px;
+  padding: 70px 0;
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
 }
 
 .section h2 {
-  font-size: 26px;
-  margin-bottom: 12px;
+  font-size: 28px;
+  margin-bottom: 14px;
 }
+
 
 .section p {
   color: #cbd5e1;
@@ -146,10 +148,17 @@ html {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 14px;
-  margin-top: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 18px;
 }
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 .card {
   border: 1px solid rgba(148, 163, 184, 0.18);
