@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luke Agbetu — Lead Data Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0a0a0a;
+    --ink2: #1a1a1a;
+    --muted: #6b6b6b;
+    --faint: #d0d0d0;
+    --line: #e2e2e2;
+    --bg: #ffffff;
+    --bg2: #f7f7f7;
+    --mono: 'DM Mono', monospace;
+    --display: 'Cabinet Grotesk', sans-serif;
+    --serif: 'Cabinet Grotesk', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: 'Cabinet Grotesk', sans-serif; font-size: 17px; line-height: 1.75; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 3rem;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-logo { font-family: var(--display); font-weight: 800; font-size: 1.1rem; letter-spacing: -0.02em; color: var(--ink); text-decoration: none; }
+  nav ul { list-style: none; display: flex; gap: 2rem; align-items: center; }
+  nav ul a { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  nav ul a:hover { color: var(--ink); }
+  .nav-resume { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.5rem 1.1rem; border: 1px solid var(--ink); color: var(--ink); text-decoration: none; transition: all 0.2s; }
+  .nav-resume:hover { background: var(--ink); color: #fff; }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 72px; }
+  .hero-left {
+    padding: 7rem 4rem 6rem;
+    display: flex; flex-direction: column; justify-content: center;
+    border-right: 1px solid var(--line);
+  }
+  .hero-photo-wrap {
+    width: 130px; height: 130px; border-radius: 50%;
+    overflow: hidden; border: 2px solid var(--ink);
+    margin-bottom: 2rem; flex-shrink: 0;
+  }
+  .hero-photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-tag { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+  .hero-tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--ink); }
+  h1 { font-family: var(--display); font-size: clamp(2.8rem, 4.5vw, 4.8rem); font-weight: 800; line-height: 1.0; letter-spacing: -0.03em; color: var(--ink); margin-bottom: 1.5rem; }
+  .hero-sub { font-size: 1rem; color: var(--muted); max-width: 400px; margin-bottom: 2.5rem; line-height: 1.85; font-family: var(--serif); }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.85rem 2rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.22s; }
+  .btn-primary { background: var(--ink); color: #fff; border: 1px solid var(--ink); }
+  .btn-primary:hover { background: #333; border-color: #333; }
+  .btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--faint); }
+  .btn-outline:hover { border-color: var(--ink); }
+
+  .hero-right { display: flex; flex-direction: column; justify-content: center; padding: 7rem 4rem 6rem; background: var(--bg2); }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 2.5rem; }
+  .stat-cell { padding: 1.75rem 1.5rem; background: var(--bg2); }
+  .stat-cell:nth-child(even) { background: var(--bg); }
+  .stat-num { font-family: var(--display); font-size: 2.6rem; font-weight: 800; letter-spacing: -0.04em; color: var(--ink); line-height: 1; margin-bottom: 0.3rem; }
+  .stat-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .cloud-row { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+  .cloud-tag { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.04em; padding: 0.28rem 0.65rem; background: var(--bg); border: 1px solid var(--line); color: var(--muted); }
+
+  /* SECTIONS */
+  section { padding: 6rem 3rem; }
+  .section-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 3.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--line); }
+  .section-num { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); letter-spacing: 0.1em; }
+  h2 { font-family: var(--display); font-size: clamp(2rem, 3vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; color: var(--ink); }
+
+  /* SKILLS */
+  #skills { background: var(--bg2); }
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .skill-block { background: var(--bg2); padding: 2rem; }
+  .skill-block-title { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--line); }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .pill { font-family: var(--mono); font-size: 0.65rem; padding: 0.28rem 0.65rem; background: var(--bg); border: 1px solid var(--line); color: var(--muted); }
+  .pill.accent { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+  /* EXPERIENCE */
+  #experience { background: var(--bg); }
+  .timeline { position: relative; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--line); }
+  .job { padding-left: 2.5rem; padding-bottom: 4rem; position: relative; }
+  .job::before { content: ''; position: absolute; left: -4px; top: 0.65rem; width: 9px; height: 9px; background: var(--ink); border-radius: 50%; }
+  .job-header { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-bottom: 0.3rem; }
+  .job-title { font-family: var(--display); font-size: 1.2rem; font-weight: 700; color: var(--ink); }
+  .job-company { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.05em; color: var(--muted); }
+  .job-meta { font-family: var(--mono); font-size: 0.68rem; color: var(--faint); margin-bottom: 1.25rem; }
+  .job ul { padding-left: 1.25rem; }
+  .job li { font-size: 0.93rem; line-height: 1.7; color: #444; margin-bottom: 0.5rem; }
+  .job-tools { margin-top: 1.25rem; padding: 0.9rem 1.25rem; background: var(--bg2); border-left: 2px solid var(--ink); font-family: var(--mono); font-size: 0.68rem; color: var(--muted); line-height: 1.9; }
+
+  /* PROJECTS */
+  #projects { background: var(--bg2); }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .project-card { background: var(--bg); padding: 2rem; display: flex; flex-direction: column; transition: background 0.2s; }
+  .project-card:hover { background: var(--bg2); }
+  .project-label { font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+  .project-title { font-family: var(--display); font-size: 1.1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.75rem; line-height: 1.3; }
+  .project-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 1.5rem; font-family: var(--serif); }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.5rem; }
+  .project-tag { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.05em; padding: 0.22rem 0.55rem; background: var(--bg2); border: 1px solid var(--line); color: var(--muted); }
+  .project-links { display: flex; gap: 1.25rem; }
+  .project-link { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--faint); padding-bottom: 1px; transition: border-color 0.2s; }
+  .project-link:hover { border-color: var(--ink); }
+
+  /* EDUCATION */
+  #education { background: var(--bg); }
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 2.5rem; }
+  .edu-card { padding: 2rem; background: var(--bg); position: relative; overflow: hidden; }
+  .edu-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--ink); }
+  .edu-deg { font-family: var(--display); font-size: 1.05rem; font-weight: 700; margin-bottom: 0.3rem; color: var(--ink); }
+  .edu-inst { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); margin-bottom: 0.2rem; }
+  .edu-year { font-family: var(--mono); font-size: 0.68rem; color: var(--faint); }
+  .certs-list { }
+  .cert-item { display: flex; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
+  .cert-badge { width: 36px; height: 36px; flex-shrink: 0; background: var(--ink); color: #fff; font-family: var(--mono); font-size: 0.55rem; display: flex; align-items: center; justify-content: center; letter-spacing: 0.04em; text-align: center; line-height: 1.2; font-weight: 500; }
+  .cert-name { font-family: var(--mono); font-size: 0.8rem; color: var(--ink); }
+
+  /* PUBLICATION */
+  #publication { background: var(--bg2); }
+  .pub-card { background: var(--bg); border: 1px solid var(--line); border-left: 3px solid var(--ink); padding: 2.5rem; max-width: 760px; }
+  .pub-label { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+  .pub-title { font-family: var(--display); font-size: 1.45rem; font-weight: 700; color: var(--ink); line-height: 1.35; margin-bottom: 1rem; }
+
+  /* CONTACT */
+  #contact { background: var(--bg); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .contact-intro { font-size: 1rem; color: var(--muted); line-height: 1.85; font-family: var(--serif); }
+  .contact-info { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .contact-item { display: flex; align-items: baseline; gap: 1rem; padding: 1rem 1.25rem; background: var(--bg); }
+  .contact-item-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); min-width: 72px; flex-shrink: 0; }
+  .contact-item-value { font-family: var(--mono); font-size: 0.78rem; color: var(--ink); }
+  .contact-item-link { font-family: var(--mono); font-size: 0.78rem; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--faint); transition: border-color 0.2s; }
+  .contact-item-link:hover { border-color: var(--ink); }
+  .resume-bar { background: var(--ink); padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 2.5rem; }
+  .resume-bar-text { font-family: var(--mono); font-size: 0.75rem; color: rgba(255,255,255,0.6); }
+  .btn-white { background: #fff; color: var(--ink); border: 1px solid #fff; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.75rem 1.75rem; text-decoration: none; transition: all 0.2s; }
+  .btn-white:hover { background: var(--bg2); }
+
+  /* FOOTER */
+  footer { padding: 2rem 3rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 0.68rem; color: var(--muted); background: var(--bg2); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-left > * { animation: fadeUp 0.6s both; }
+  .hero-left > *:nth-child(1) { animation-delay: 0.05s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.15s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.25s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.35s; }
+  .hero-left > *:nth-child(5) { animation-delay: 0.45s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .skills-grid .skill-block[style*="span 2"] { grid-column: span 2; }
+  }
+  @media (max-width: 860px) {
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { padding: 3rem 2rem; border-top: 1px solid var(--line); }
+    .hero-left { padding: 6rem 2rem 3rem; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    nav { padding: 1rem 1.5rem; }
+    nav ul { gap: 1rem; }
+    .nav-resume { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .resume-bar { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">Luke Agbetu</a>
+  <ul>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a class="nav-resume" href="https://raw.githubusercontent.com/Lanre2907/Lanre2907.github.io/main/luke_agbetu_resume.pdf" target="_blank">↓ Resume</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-photo-wrap">
+      <img src="data:image/png;base64,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" alt="Luke Agbetu">
+    </div>
+    <div class="hero-tag">Lead Data Engineer</div>
+    <h1>Luke<br>Agbetu</h1>
+    <p class="hero-sub">9+ years building scalable data pipelines, cloud-native platforms, and enterprise data solutions across telecom, financial services, and regulated healthcare.</p>
+    <div class="hero-cta">
+      <a href="#experience" class="btn btn-primary">View Experience</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-grid">
+      <div class="stat-cell"><div class="stat-num">9+</div><div class="stat-label">Years Experience</div></div>
+      <div class="stat-cell"><div class="stat-num">10M+</div><div class="stat-label">Daily Records</div></div>
+      <div class="stat-cell"><div class="stat-num">3</div><div class="stat-label">Cloud Platforms</div></div>
+      <div class="stat-cell"><div class="stat-num">60%</div><div class="stat-label">Query Perf Gains</div></div>
+    </div>
+    <div class="cloud-row">
+      <span class="cloud-tag">AWS</span><span class="cloud-tag">Azure</span><span class="cloud-tag">GCP</span>
+      <span class="cloud-tag">Databricks</span><span class="cloud-tag">Apache Spark</span>
+      <span class="cloud-tag">Apache Airflow</span><span class="cloud-tag">Delta Lake</span>
+      <span class="cloud-tag">Snowflake</span><span class="cloud-tag">Redshift</span>
+      <span class="cloud-tag">BigQuery</span><span class="cloud-tag">Python</span>
+      <span class="cloud-tag">PySpark</span><span class="cloud-tag">dbt</span>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header"><span class="section-num">01</span><h2>Technical Skills</h2></div>
+  <div class="skills-grid">
+    <div class="skill-block">
+      <div class="skill-block-title">Languages &amp; Core</div>
+      <div class="skill-pills">
+        <span class="pill accent">Python</span><span class="pill accent">SQL</span><span class="pill accent">PySpark</span>
+        <span class="pill">Spark SQL</span><span class="pill">PL/SQL</span><span class="pill">PowerShell</span>
+        <span class="pill">Java</span><span class="pill">Node.js</span><span class="pill">C#</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">Data Engineering</div>
+      <div class="skill-pills">
+        <span class="pill accent">Apache Spark</span><span class="pill accent">Apache Airflow</span><span class="pill accent">Databricks</span>
+        <span class="pill">Delta Lake</span><span class="pill">Kafka</span><span class="pill">Apache Flink</span>
+        <span class="pill">Hadoop</span><span class="pill">dbt</span><span class="pill">ETL / ELT</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">Cloud Platforms</div>
+      <div class="skill-pills">
+        <span class="pill accent">AWS (S3, Redshift, Glue, EKS)</span>
+        <span class="pill accent">Azure (ADF, Databricks, SQL)</span>
+        <span class="pill accent">GCP (BigQuery, Dataflow)</span>
+        <span class="pill">Cloud Composer</span><span class="pill">Pub/Sub</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">Databases &amp; Warehousing</div>
+      <div class="skill-pills">
+        <span class="pill accent">Snowflake</span><span class="pill accent">Amazon Redshift</span><span class="pill accent">BigQuery</span>
+        <span class="pill">Oracle</span><span class="pill">PostgreSQL</span><span class="pill">SQL Server</span>
+        <span class="pill">MongoDB</span><span class="pill">Teradata</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">DevOps &amp; Infrastructure</div>
+      <div class="skill-pills">
+        <span class="pill accent">Docker</span><span class="pill accent">Kubernetes</span><span class="pill accent">Terraform</span>
+        <span class="pill">GitHub Actions</span><span class="pill">CI/CD</span><span class="pill">Linux</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">Data Modeling &amp; Architecture</div>
+      <div class="skill-pills">
+        <span class="pill accent">Medallion Architecture</span><span class="pill">Star &amp; Snowflake Schemas</span>
+        <span class="pill">SCD</span><span class="pill">Transactional Modeling</span><span class="pill">Data Lakehouse</span>
+      </div>
+    </div>
+    <div class="skill-block" style="grid-column: span 2;">
+      <div class="skill-block-title">Security &amp; Automation</div>
+      <div class="skill-pills">
+        <span class="pill accent">Microsoft Sentinel (SIEM)</span>
+        <span class="pill accent">Azure Logic Apps</span>
+        <span class="pill accent">Tines (SOAR)</span>
+        <span class="pill">Security Automation</span>
+        <span class="pill">Incident Response</span>
+        <span class="pill">Rapid7 InsightVM</span>
+        <span class="pill">Vulnerability Management</span>
+        <span class="pill">Compliance &amp; PII Protection</span>
+        <span class="pill">SolarWinds</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header"><span class="section-num">02</span><h2>Experience</h2></div>
+  <div class="timeline">
+    <div class="job">
+      <div class="job-header"><span class="job-title">Data Engineer</span><span class="job-company">AT&amp;T</span></div>
+      <div class="job-meta">January 2025 – Present · Telecom</div>
+      <ul>
+        <li>Designed and owned production-grade ETL/ELT pipelines processing 10M+ daily customer and operational records across AT&amp;T's telecom data platform.</li>
+        <li>Built batch and near-real-time Spark pipelines reducing average processing latency by ~30% through partition tuning, broadcast joins, and execution-plan optimization.</li>
+        <li>Implemented data quality checks across 15+ pipeline DAGs, cutting data reprocessing incidents by ~40%.</li>
+        <li>Modeled analytical datasets using star and snowflake schemas supporting 8+ downstream BI and analytics teams.</li>
+        <li>Built CI/CD workflows using GitHub Actions, Docker, and Terraform, reducing pipeline deployment time from hours to under 15 minutes.</li>
+        <li>Containerized 20+ data pipelines on Kubernetes (EKS), enabling auto-scaling and fault-tolerant distributed execution.</li>
+      </ul>
+      <div class="job-tools">Python · SQL · PySpark · Spark SQL · Apache Airflow · Databricks · Delta Lake · Amazon Redshift · Snowflake · AWS (S3, EKS) · Docker · Kubernetes · Terraform · GitHub Actions · Power BI</div>
+    </div>
+    <div class="job">
+      <div class="job-header"><span class="job-title">Data Engineer / Cloud &amp; Analytics Support</span><span class="job-company">Exact Trust · Dallas, TX</span></div>
+      <div class="job-meta">October 2023 – December 2024 · Analytics &amp; Security</div>
+      <ul>
+        <li>Engineered cloud-based data pipelines across AWS and Azure supporting 6+ internal business units and processing 2TB+ of structured and semi-structured data monthly.</li>
+        <li>Built Databricks and Spark-based Medallion pipelines using Delta Lake, reducing data processing time by ~35%.</li>
+        <li>Designed and deployed security automation workflows using Microsoft Sentinel (SIEM) and Azure Logic Apps, automating threat detection, alert triage, and incident response to reduce manual analyst workload.</li>
+        <li>Built end-to-end security orchestration playbooks using Tines (SOAR), automating multi-step response actions across Sentinel, email, and ticketing systems — cutting mean time to respond to incidents.</li>
+        <li>Integrated Rapid7 vulnerability data into analytics dashboards and compliance workflows, improving incident detection response time by ~20%.</li>
+        <li>Automated ingestion, transformation, and reporting workflows eliminating ~15 hours/week of manual effort.</li>
+      </ul>
+      <div class="job-tools">Python · PowerShell · Apache Spark · Databricks · Delta Lake · AWS · Azure Data Factory · Microsoft Sentinel · Azure Logic Apps · Tines · Rapid7 InsightVM · SolarWinds · Power BI</div>
+    </div>
+    <div class="job">
+      <div class="job-header"><span class="job-title">Data Engineer / SQL Database Developer</span><span class="job-company">DbConn · Hamburg, Germany</span></div>
+      <div class="job-meta">March 2023 – September 2023 · Hybrid</div>
+      <ul>
+        <li>Developed and optimized 30+ complex SQL objects including stored procedures, views, and table-valued functions for 5+ business applications.</li>
+        <li>Improved query performance by up to 60% on high-frequency reporting and transactional workloads through advanced indexing and execution-plan analysis.</li>
+        <li>Built backend automation solutions using Python and SQL to streamline customer processes.</li>
+      </ul>
+      <div class="job-tools">SQL Server · T-SQL · Crystal Reports · Python · Stored Procedures · Indexing · Execution Plan Analysis · Git</div>
+    </div>
+    <div class="job">
+      <div class="job-header"><span class="job-title">Lead Software Developer / Technology</span><span class="job-company">Skye Bank · UBA · GTBank · Unified Payment Services</span></div>
+      <div class="job-meta">2012 – 2022 · Financial Services, Nigeria</div>
+      <ul>
+        <li>Led enterprise technology, digital banking, and data-driven platforms across regulated financial institutions spanning application delivery, core banking integrations, and infrastructure modernization.</li>
+        <li>Designed API-driven integrations using RESTful and SOAP connecting core banking systems with mobile banking, USSD, POS/ATM settlement, and real-time reporting platforms.</li>
+        <li>Led Oracle core banking upgrade initiatives and supported disaster recovery and data center migration projects.</li>
+        <li>Delivered production systems including mobile account opening, real-time payment portals, SMS alert platforms, and government-facing transaction reporting solutions.</li>
+      </ul>
+      <div class="job-tools">Oracle · PostgreSQL · SQL Server · PL/SQL · Crystal Reports · Java · C# · ASP.NET · Node.js · REST APIs · SOAP · Power BI</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header"><span class="section-num">03</span><h2>Projects</h2></div>
+
+  <!-- AT&T -->
+  <div style="font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:1rem;">
+    <span style="color:var(--ink);font-weight:500;">AT&amp;T</span>
+    <span style="flex:1;height:1px;background:var(--line);display:block;"></span>
+    <span>2025 – Present</span>
+  </div>
+  <div class="projects-grid" style="margin-bottom:3rem;">
+    <div class="project-card">
+      <div class="project-label">ETL / Data Pipeline</div>
+      <div class="project-title">Telecom Customer Data ETL Modernization</div>
+      <div class="project-desc">Designed and owned production ETL/ELT pipelines processing 10M+ daily customer and operational records. Improved pipeline reliability, automated ingestion, and supported downstream analytics teams across AT&amp;T's telecom data platform.</div>
+      <div class="project-tags">
+        <span class="project-tag">Python</span><span class="project-tag">SQL</span><span class="project-tag">PySpark</span>
+        <span class="project-tag">Apache Airflow</span><span class="project-tag">Spark</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+    <div class="project-card">
+      <div class="project-label">Performance Optimization</div>
+      <div class="project-title">Databricks Delta Lake Performance Optimization</div>
+      <div class="project-desc">Improved high-volume Databricks and Delta Lake workloads by applying partition tuning, broadcast joins, Z-ordering, and VACUUM strategies. Reduced processing latency by ~30% and improved query scan times by ~25%.</div>
+      <div class="project-tags">
+        <span class="project-tag">Databricks</span><span class="project-tag">Delta Lake</span>
+        <span class="project-tag">PySpark</span><span class="project-tag">Spark SQL</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+    <div class="project-card">
+      <div class="project-label">Data Quality</div>
+      <div class="project-title">Data Quality and Anomaly Detection Framework</div>
+      <div class="project-desc">Implemented data quality checks, schema validation, and anomaly detection across 15+ Airflow DAGs. Reduced data reprocessing incidents by ~40% and improved reporting reliability for downstream BI teams.</div>
+      <div class="project-tags">
+        <span class="project-tag">Apache Airflow</span><span class="project-tag">Python</span>
+        <span class="project-tag">SQL</span><span class="project-tag">Snowflake</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+  </div>
+
+  <!-- Exact Trust -->
+  <div style="font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:1rem;">
+    <span style="color:var(--ink);font-weight:500;">Exact Trust</span>
+    <span style="flex:1;height:1px;background:var(--line);display:block;"></span>
+    <span>2023 – 2024</span>
+  </div>
+  <div class="projects-grid" style="margin-bottom:3rem;">
+    <div class="project-card">
+      <div class="project-label">Cloud Data Engineering</div>
+      <div class="project-title">AWS / Azure Medallion Data Pipeline Buildout</div>
+      <div class="project-desc">Built cloud-based data pipelines across AWS, Azure, Databricks, and Delta Lake, processing 2TB+ of structured and semi-structured data monthly for 6+ internal analytics and reporting units.</div>
+      <div class="project-tags">
+        <span class="project-tag">AWS</span><span class="project-tag">Azure</span><span class="project-tag">Databricks</span>
+        <span class="project-tag">Delta Lake</span><span class="project-tag">Azure Data Factory</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+    <div class="project-card">
+      <div class="project-label">Security Analytics</div>
+      <div class="project-title">Vulnerability Analytics and Compliance Dashboard</div>
+      <div class="project-desc">Integrated Rapid7 vulnerability data into analytics dashboards and compliance workflows, improving incident detection response time by ~20% and giving teams better visibility into security and operational risks.</div>
+      <div class="project-tags">
+        <span class="project-tag">Rapid7</span><span class="project-tag">Power BI</span>
+        <span class="project-tag">Python</span><span class="project-tag">Azure SQL</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+  </div>
+
+  <!-- DbConn -->
+  <div style="font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:1rem;">
+    <span style="color:var(--ink);font-weight:500;">DbConn</span>
+    <span style="flex:1;height:1px;background:var(--line);display:block;"></span>
+    <span>2023</span>
+  </div>
+  <div class="projects-grid" style="margin-bottom:1rem;">
+    <div class="project-card">
+      <div class="project-label">SQL Engineering</div>
+      <div class="project-title">SQL Performance Optimization and Reporting Automation</div>
+      <div class="project-desc">Developed and optimized 30+ SQL objects including stored procedures, views, and table-valued functions. Improved indexing and execution plans, boosting reporting and transactional query performance by up to 60% across enterprise SQL Server environments.</div>
+      <div class="project-tags">
+        <span class="project-tag">SQL Server</span><span class="project-tag">T-SQL</span>
+        <span class="project-tag">Stored Procedures</span><span class="project-tag">Crystal Reports</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+  </div>
+  <p style="font-family:var(--mono);font-size:0.65rem;color:var(--faint);margin-top:0.5rem;">✦ GitHub links are placeholders — swap in your repo URLs when ready.</p>
+
+  <!-- Skye Bank Sierra Leone -->
+  <div style="font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-top:3rem;margin-bottom:1rem;display:flex;align-items:center;gap:1rem;">
+    <span style="color:var(--ink);font-weight:500;">Skye Bank (SL) Limited</span>
+    <span style="flex:1;height:1px;background:var(--line);display:block;"></span>
+    <span>2020 – 2022</span>
+  </div>
+  <div class="projects-grid" style="margin-bottom:3rem;">
+
+    <div class="project-card">
+      <div class="project-label">Fintech · USSD</div>
+      <div class="project-title">B2W-W2B (Bank-2-Wallet) with Africell</div>
+      <div class="project-desc">Led full implementation of Bank-to-Wallet and Wallet-to-Bank transfer service in partnership with Africell Telecommunications via USSD. Enabled customers to move funds, check balances, and view last 5 transactions from their mobile phone.</div>
+      <div class="project-tags">
+        <span class="project-tag">USSD</span><span class="project-tag">API Integration</span><span class="project-tag">Fintech</span><span class="project-tag">Africell</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">Core Banking · Upgrade</div>
+      <div class="project-title">Oracle Flexcube Upgrade — v6.2 to v14.0</div>
+      <div class="project-desc">Led the team through a major core banking application upgrade from Oracle Flexcube v6.2 to v14.0, including data center migration, server setup, raise floor installation, network racks, FM-200 installation, and full infrastructure cutover.</div>
+      <div class="project-tags">
+        <span class="project-tag">Oracle Flexcube</span><span class="project-tag">Data Center</span><span class="project-tag">Core Banking</span><span class="project-tag">Infrastructure</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">Internet Banking</div>
+      <div class="project-title">Skye Web — Internet Banking Platform</div>
+      <div class="project-desc">Implemented internet banking platform for Skye Bank SL enabling customer self-enrollment via OTP SMS, supporting own/intra/inter-bank transfers, airtime purchase, bill payments, bank statements, standing orders, and card services.</div>
+      <div class="project-tags">
+        <span class="project-tag">Internet Banking</span><span class="project-tag">OTP / SMS</span><span class="project-tag">REST API</span><span class="project-tag">Core Banking</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">Notifications · SMS</div>
+      <div class="project-title">Skye Alert — SMS Transaction Notification System</div>
+      <div class="project-desc">Built an in-house SMS transaction notification system using RESTful/SOAP API integration between the core banking application and an SMS gateway. Completed in 2 weeks, saving the bank $10,000 versus third-party vendor proposals.</div>
+      <div class="project-tags">
+        <span class="project-tag">RESTful API</span><span class="project-tag">SOAP</span><span class="project-tag">SMS Gateway</span><span class="project-tag">Core Banking</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">Payments · Real-Time</div>
+      <div class="project-title">Real-Time Payment Portal — Mercury Limited</div>
+      <div class="project-desc">Built a real-time payment portal for Mercury betting company enabling visibility of agent payments made across all Skye Bank branches. Project completed in one week.</div>
+      <div class="project-tags">
+        <span class="project-tag">Payment Portal</span><span class="project-tag">Real-Time</span><span class="project-tag">REST API</span><span class="project-tag">SQL Server</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">Workflow Automation</div>
+      <div class="project-title">ProcessMaker Workflow Implementation</div>
+      <div class="project-desc">Implemented ProcessMaker automated workflow internally for Skye Bank SL, eliminating paper-based processes and saving the bank $90,000 versus outsourcing to external vendors.</div>
+      <div class="project-tags">
+        <span class="project-tag">ProcessMaker</span><span class="project-tag">Workflow</span><span class="project-tag">Automation</span><span class="project-tag">Cost Saving</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">Government · Tax</div>
+      <div class="project-title">NRA ITAS Integration — National Revenue Authority</div>
+      <div class="project-desc">Implemented real-time tax remittance integration between Skye Bank Sierra Leone and the National Revenue Authority (NRA) ITAS system, enabling tax payments at bank branches to be transmitted to the government system in real time.</div>
+      <div class="project-tags">
+        <span class="project-tag">Government API</span><span class="project-tag">Real-Time</span><span class="project-tag">Tax</span><span class="project-tag">Sierra Leone</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">Debit Card · Mastercard</div>
+      <div class="project-title">Mastercard Debit Card — Instant Issuance</div>
+      <div class="project-desc">Led implementation of Mastercard debit card project for Skye Bank SL including instant card issuance, enabling customers to receive a requested debit card on the spot at branches.</div>
+      <div class="project-tags">
+        <span class="project-tag">Mastercard</span><span class="project-tag">Card Issuance</span><span class="project-tag">Core Banking</span><span class="project-tag">Fintech</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">Email · M365</div>
+      <div class="project-title">Microsoft 365 Email Migration — Skye Bank SL &amp; Guinea</div>
+      <div class="project-desc">Led migration from MDaemon to Microsoft 365 email platform for both Skye Bank Sierra Leone and Skye Bank Guinea Conakry, including full mailbox migration. Each deployment completed within two weeks.</div>
+      <div class="project-tags">
+        <span class="project-tag">Microsoft 365</span><span class="project-tag">M365</span><span class="project-tag">Migration</span><span class="project-tag">MDaemon</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+  </div>
+
+  <!-- UBA Sierra Leone -->
+  <div style="font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-top:1rem;margin-bottom:1rem;display:flex;align-items:center;gap:1rem;">
+    <span style="color:var(--ink);font-weight:500;">UBA Sierra Leone</span>
+    <span style="flex:1;height:1px;background:var(--line);display:block;"></span>
+    <span>2020</span>
+  </div>
+  <div class="projects-grid" style="margin-bottom:3rem;">
+
+    <div class="project-card">
+      <div class="project-label">Fintech · Chat Banking</div>
+      <div class="project-title">EDSA Electricity Vending — LEO WhatsApp &amp; Facebook Banking</div>
+      <div class="project-desc">Implemented EDSA electricity vending functionality on UBA Sierra Leone's LEO Chat Banking platform across both WhatsApp and Facebook Messenger channels, enabling customers to purchase electricity tokens directly via chat.</div>
+      <div class="project-tags">
+        <span class="project-tag">WhatsApp Banking</span><span class="project-tag">Facebook Messenger</span><span class="project-tag">API</span><span class="project-tag">Fintech</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+  </div>
+
+  <!-- GTBank Sierra Leone -->
+  <div style="font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-top:1rem;margin-bottom:1rem;display:flex;align-items:center;gap:1rem;">
+    <span style="color:var(--ink);font-weight:500;">Guaranty Trust Bank (GTBank) Sierra Leone</span>
+    <span style="flex:1;height:1px;background:var(--line);display:block;"></span>
+    <span>2015 – 2019</span>
+  </div>
+  <div class="projects-grid" style="margin-bottom:3rem;">
+
+    <div class="project-card">
+      <div class="project-label">Banking · USSD</div>
+      <div class="project-title">USSD Banking (*3737#) Implementation</div>
+      <div class="project-desc">Acted as both Implementation Manager and Software Developer for GTBank SL's USSD banking platform. Built RESTful web service integrating the core banking application, USSD database, and USSD app — covering balance enquiry, mini statement, fund transfers, airtime purchase, PIN management, and registration.</div>
+      <div class="project-tags">
+        <span class="project-tag">USSD</span><span class="project-tag">RESTful API</span><span class="project-tag">Core Banking</span><span class="project-tag">VB.Net</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">Internet Banking</div>
+      <div class="project-title">GTBank Internet Banking &amp; GAPS Platform</div>
+      <div class="project-desc">Developed and deployed GTBank SL's internet banking platform and GAPS (General Account Payment System) as lead application developer, enabling customer self-enrollment and full digital banking services.</div>
+      <div class="project-tags">
+        <span class="project-tag">Internet Banking</span><span class="project-tag">ASP.Net</span><span class="project-tag">SQL Server</span><span class="project-tag">Core Banking</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link" href="https://ibank.gtb.sl/ibank6" target="_blank">Live Site →</a>
+        <a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">Mobile Banking</div>
+      <div class="project-title">GT-Simpay Mobile Web Service</div>
+      <div class="project-desc">Developed the web service integration between GTBank SL's core banking application and the GT-Simpay mobile financial application as the bank's lead developer.</div>
+      <div class="project-tags">
+        <span class="project-tag">Web Services</span><span class="project-tag">REST API</span><span class="project-tag">Mobile Banking</span><span class="project-tag">Core Banking</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">SME · Web Portal</div>
+      <div class="project-title">SME Market Hub</div>
+      <div class="project-desc">Delivered SME Market Hub (smemarkethub.sl) — a web portal enabling GTBank SL's SME customers without their own websites to showcase products to consumers, built in partnership with Trendways Solutions.</div>
+      <div class="project-tags">
+        <span class="project-tag">Web Portal</span><span class="project-tag">SME</span><span class="project-tag">PHP</span><span class="project-tag">MySQL</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">ATM · Enhancement</div>
+      <div class="project-title">ATM Omni-Channel Enhancement</div>
+      <div class="project-desc">Led ATM enhancement project enabling fund transfers, airtime purchase, bill payments, ATM voice prompt, and cardless transactions. Developed API to integrate GTBank SL's core banking application with the Front-End Processor (Postilion).</div>
+      <div class="project-tags">
+        <span class="project-tag">ATM</span><span class="project-tag">Postilion</span><span class="project-tag">API</span><span class="project-tag">Omni-Channel</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">Mobile · Account Opening</div>
+      <div class="project-title">Mobile Account Opening Solution</div>
+      <div class="project-desc">Implemented mobile account opening solution enabling GTBank SL marketing officers to open bank accounts on the go for customers during market visits, with API integration to the core banking middleware for near-instant account number generation.</div>
+      <div class="project-tags">
+        <span class="project-tag">Mobile</span><span class="project-tag">REST API</span><span class="project-tag">Core Banking</span><span class="project-tag">Android</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">Debit Card · USD</div>
+      <div class="project-title">USD Mastercard Debit Card Issuance</div>
+      <div class="project-desc">Led implementation of USD-denominated Mastercard debit card for GTBank SL customers, enabling fee-free international spending directly from USD accounts anywhere in the world.</div>
+      <div class="project-tags">
+        <span class="project-tag">Mastercard</span><span class="project-tag">USD Card</span><span class="project-tag">Core Banking</span><span class="project-tag">Card Issuance</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">Compliance · AML</div>
+      <div class="project-title">e-STR Suspicious Transaction Reporting App</div>
+      <div class="project-desc">Developed an in-house web application enabling GTBank SL staff to report suspicious transactions directly to the Compliance Unit, strengthening the bank's AML and compliance posture.</div>
+      <div class="project-tags">
+        <span class="project-tag">Compliance</span><span class="project-tag">AML</span><span class="project-tag">ASP.Net</span><span class="project-tag">SQL Server</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">Payments · Collections</div>
+      <div class="project-title">US Visa Collection System (GTCollection)</div>
+      <div class="project-desc">Built a payment collection system enabling GTBank SL customers to make direct payments to the US Embassy account and book visa appointments through the bank.</div>
+      <div class="project-tags">
+        <span class="project-tag">Payment Portal</span><span class="project-tag">ASP.Net</span><span class="project-tag">SQL Server</span><span class="project-tag">REST API</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">Government · TSA</div>
+      <div class="project-title">TSA Application — Sierra Leone Government Reporting</div>
+      <div class="project-desc">Developed GTBank SL's TSA (Treasury Single Account) application to transmit daily banking information to the Sierra Leone Government, ensuring regulatory compliance and real-time government reporting.</div>
+      <div class="project-tags">
+        <span class="project-tag">Government</span><span class="project-tag">TSA</span><span class="project-tag">VB.Net</span><span class="project-tag">SQL Server</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+  </div>
+
+  <!-- Unified Payment Services -->
+  <div style="font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-top:1rem;margin-bottom:1rem;display:flex;align-items:center;gap:1rem;">
+    <span style="color:var(--ink);font-weight:500;">Unified Payment Services Limited</span>
+    <span style="flex:1;height:1px;background:var(--line);display:block;"></span>
+    <span>2015</span>
+  </div>
+  <div class="projects-grid" style="margin-bottom:3rem;">
+
+    <div class="project-card">
+      <div class="project-label">POS · Settlement</div>
+      <div class="project-title">POS Super Settler — Merchant Settlement Application</div>
+      <div class="project-desc">Developed and supported POS Super Settler, a merchant settlement application for daily, weekly, and monthly POS transaction settlement across merchants, alongside ATM Super Settler for ATM transaction settlement using VB.Net and Oracle.</div>
+      <div class="project-tags">
+        <span class="project-tag">VB.Net</span><span class="project-tag">Oracle</span><span class="project-tag">POS</span><span class="project-tag">ATM Settlement</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+  </div>
+
+  <!-- Powersoft Integrated Solutions -->
+  <div style="font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-top:1rem;margin-bottom:1rem;display:flex;align-items:center;gap:1rem;">
+    <span style="color:var(--ink);font-weight:500;">Powersoft Integrated Solutions Limited</span>
+    <span style="flex:1;height:1px;background:var(--line);display:block;"></span>
+    <span>2012 – 2015</span>
+  </div>
+  <div class="projects-grid" style="margin-bottom:1rem;">
+
+    <div class="project-card">
+      <div class="project-label">Healthcare Software</div>
+      <div class="project-title">Power HMO — Medexia Limited</div>
+      <div class="project-desc">Full development and implementation of Power HMO — a comprehensive health management platform covering underwriting, enrollment, hospital capitation, claims, authorisations, attendance, admissions, and back-office accounting integration.</div>
+      <div class="project-tags">
+        <span class="project-tag">VB.Net</span><span class="project-tag">SQL Server</span><span class="project-tag">HMO</span><span class="project-tag">Healthcare</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link" href="http://www.medexia.com" target="_blank">Live Site →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">Revenue Management · Hospital</div>
+      <div class="project-title">Revenue Collection System — UDUTH Sokoto</div>
+      <div class="project-desc">Built a Revenue Collection Management System for Usman Danfodiyo University Teaching Hospital covering drug inventory, cash collection, pharmacist costing, inventory adjustments, and revolving account balancing.</div>
+      <div class="project-tags">
+        <span class="project-tag">VB.Net</span><span class="project-tag">SQL Server</span><span class="project-tag">Healthcare</span><span class="project-tag">Revenue Management</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">ERP · Hotel</div>
+      <div class="project-title">Power Suite — Hotel Management Solution</div>
+      <div class="project-desc">Developed and implemented Power Suite, a full hotel management solution covering room booking, guest management, billing, and reporting for hospitality businesses.</div>
+      <div class="project-tags">
+        <span class="project-tag">VB.Net</span><span class="project-tag">SQL Server</span><span class="project-tag">Hotel Management</span><span class="project-tag">ERP</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">ERP · Library</div>
+      <div class="project-title">Power Library — School Library Solution</div>
+      <div class="project-desc">Developed and implemented Power Library, a library management solution for schools covering cataloguing, member management, borrowing, returns, and reporting.</div>
+      <div class="project-tags">
+        <span class="project-tag">VB.Net</span><span class="project-tag">SQL Server</span><span class="project-tag">Library Management</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">POS · Multi-Sector</div>
+      <div class="project-title">Power POS — Multi-Company Implementations</div>
+      <div class="project-desc">Implemented Power POS across multiple businesses including Mama Cass Restaurant (Lagos), Coldstone (Lekki), Stonebrand Aba (Mr Biggs, Village Kitchen, Cream Inn), and Barom Pharmacy — covering sales, stock inventory, and revenue collection.</div>
+      <div class="project-tags">
+        <span class="project-tag">VB.Net</span><span class="project-tag">SQL Server</span><span class="project-tag">POS</span><span class="project-tag">Inventory</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-label">Mobile · Sales Force</div>
+      <div class="project-title">Sales Force Automation — Procter &amp; Gamble Nigeria</div>
+      <div class="project-desc">Implemented Android Sales Force Automation app for all P&amp;G distributors across 5 states (Oyo, Ondo, Osun, Ekiti, Kwara), enabling mobile invoicing via Bluetooth printer for van sales reps across Nigeria.</div>
+      <div class="project-tags">
+        <span class="project-tag">Android</span><span class="project-tag">Java</span><span class="project-tag">Bluetooth</span><span class="project-tag">Mobile Invoicing</span>
+      </div>
+      <div class="project-links"><a class="project-link" href="https://github.com/Lanre2907" target="_blank">GitHub →</a></div>
+    </div>
+
+  </div>
+
+  <p style="font-family:var(--mono);font-size:0.65rem;color:var(--faint);margin-top:0.5rem;">✦ GitHub links point to profile — update individual cards with specific repo URLs when ready.</p>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header"><span class="section-num">04</span><h2>Education &amp; Certifications</h2></div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-deg">MSc. Computer Science</div>
+      <div class="edu-inst">Towson University, Maryland, USA</div>
+      <div class="edu-year">December 2025</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-deg">BSc. Computer Science &amp; Mathematics</div>
+      <div class="edu-inst">Fountain University, Osun State, Nigeria</div>
+      <div class="edu-year">July 2011</div>
+    </div>
+  </div>
+  <div class="certs-list">
+    <div class="cert-item"><div class="cert-badge">AWS</div><div class="cert-name">AWS Certified Data Engineer – Associate</div></div>
+    <div class="cert-item"><div class="cert-badge">AWS</div><div class="cert-name">AWS Certified Cloud Practitioner</div></div>
+    <div class="cert-item"><div class="cert-badge">SEC+</div><div class="cert-name">CompTIA Security+ CE Certification</div></div>
+  </div>
+</section>
+
+<!-- PUBLICATION -->
+<section id="publication">
+  <div class="section-header"><span class="section-num">05</span><h2>Publication</h2></div>
+  <div class="pub-card">
+    <div class="pub-label">Research Paper · MDPI Algorithms</div>
+    <div class="pub-title">Detecting SARS-CoV-2 in CT Scans Using Vision Transformer &amp; GNN</div>
+    <a class="project-link" href="https://www.mdpi.com/search?q=SARS-CoV-2+CT+Vision+Transformer+GNN+Agbetu" target="_blank" style="display:inline-block;margin-top:1rem;">Read on MDPI →</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header"><span class="section-num">06</span><h2>Get in Touch</h2></div>
+  <div class="contact-grid">
+    <div>
+      <p class="contact-intro">Open to new opportunities in data engineering, cloud data architecture, and platform engineering. Whether you're building a team, have a challenging data problem, or just want to connect — reach out.</p>
+      <br>
+      <p class="contact-intro" style="font-size:0.9rem;">Based in Aubrey, TX (Dallas–Fort Worth area). Available for remote, hybrid, or on-site roles.</p>
+      <div class="resume-bar">
+        <span class="resume-bar-text">Want a copy of my full resume?</span>
+        <a class="btn-white" href="https://raw.githubusercontent.com/Lanre2907/Lanre2907.github.io/main/luke_agbetu_resume.pdf" target="_blank">↓ Download Resume</a>
+      </div>
+    </div>
+    <div class="contact-info">
+      <div class="contact-item"><span class="contact-item-label">Email</span><span class="contact-item-value">luke.agbetu@gmail.com</span></div>
+      <div class="contact-item"><span class="contact-item-label">Phone</span><span class="contact-item-value">(989) 817-5630</span></div>
+      <div class="contact-item"><span class="contact-item-label">Location</span><span class="contact-item-value">Aubrey, TX 76227 · DFW Area</span></div>
+      <div class="contact-item"><span class="contact-item-label">LinkedIn</span><a class="contact-item-link" href="https://www.linkedin.com/in/lukman-olanrewaju-agbetu-7a49a07b/" target="_blank">linkedin.com/in/lukman-olanrewaju-agbetu</a></div>
+      <div class="contact-item"><span class="contact-item-label">GitHub</span><a class="contact-item-link" href="https://github.com/Lanre2907" target="_blank">github.com/Lanre2907</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Luke Agbetu · Lead Data Engineer</span>
+  <span>luke.agbetu@gmail.com</span>
+</footer>
+
+</body>
+</html>
